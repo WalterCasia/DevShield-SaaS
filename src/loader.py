@@ -5,8 +5,8 @@ Responsabilidad única: convertir el PDF de la base de conocimiento de
 DevShield en un índice vectorial FAISS consultable por similitud semántica.
 
 Flujo:
-    PDF  →  PyPDFLoader  →  RecursiveCharacterTextSplitter  →  Embeddings
-    (HuggingFace, local y gratuito)  →  índice FAISS en memoria.
+    PDF -> PyPDFLoader -> RecursiveCharacterTextSplitter -> Embeddings
+    (HuggingFace, local y gratuito) -> índice FAISS en memoria.
 
 Este módulo es deliberadamente independiente de Streamlit: no importa `st`
 ni conoce la interfaz. Así puede reutilizarse desde un script, una API o
@@ -98,7 +98,7 @@ def dividir_en_fragmentos(
     """Divide los documentos en fragmentos manejables para el modelo.
 
     Usa ``RecursiveCharacterTextSplitter``, que intenta cortar primero por
-    separadores "naturales" (párrafo → línea → frase → palabra), de modo que
+    separadores "naturales" (párrafo -> línea -> frase -> palabra), de modo que
     los fragmentos conserven unidades de significado completas.
 
     Args:
@@ -157,7 +157,7 @@ def crear_indice_vectorial(fragmentos: list[Document]) -> FAISS:
 # 4. Función orquestadora (punto de entrada del módulo)
 # --------------------------------------------------------------------------
 def construir_base_conocimiento(ruta_pdf: str | Path) -> FAISS:
-    """Ejecuta el pipeline completo de ingesta: PDF → índice FAISS.
+    """Ejecuta el pipeline completo de ingesta: PDF -> índice FAISS.
 
     Es la única función que `app.py` necesita invocar de este módulo.
 

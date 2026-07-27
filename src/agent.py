@@ -36,9 +36,12 @@ logger = logging.getLogger(__name__)
 # Configuración por defecto
 # --------------------------------------------------------------------------
 
-# gemini-1.5-flash: rápido, con ventana de contexto amplia y una capa
+# gemini-2.5-flash: rápido, con ventana de contexto amplia y una capa
 # gratuita generosa, ideal para un asistente de documentación.
-MODELO_LLM = "gemini-1.5-flash"
+# (gemini-1.5-flash/pro fueron retirados por Google; gemini-2.5-flash/pro
+# tienen retiro anunciado para el 16-oct-2026 — si esta app se usa después
+# de esa fecha, migrar a gemini-3.5-flash, que no tiene fecha de baja anunciada).
+MODELO_LLM = "gemini-2.5-flash"
 
 # Temperatura baja: en un agente sobre documentación normativa queremos
 # fidelidad al texto, no creatividad.

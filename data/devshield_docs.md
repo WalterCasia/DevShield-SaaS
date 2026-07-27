@@ -65,13 +65,13 @@ La duración promedio de un escaneo completo es de **8 a 12 minutos** para aplic
 | Repositorios conectados | 1 | 10 | Ilimitados |
 | Tamaño máximo por repositorio | 100 MB | 500 MB | 5 GB |
 | Escaneos simultáneos | 1 | 3 | 10 |
-| Detección SQLi y XSS | ✔ | ✔ | ✔ |
-| Detección de secretos en código | ✖ | ✔ | ✔ |
+| Detección SQLi y XSS | Sí | Sí | Sí |
+| Detección de secretos en código | No | Sí | Sí |
 | Reportes PDF/JSON | Solo PDF | PDF y JSON | PDF, JSON y API |
 | Retención de reportes | 30 días | 12 meses | 24 meses |
 | Usuarios por cuenta | 1 | 5 | Ilimitados |
 | Soporte | Comunidad (foro) | Correo (24 h hábiles) | Prioritario 24/7 + gerente de cuenta |
-| API de integración CI/CD | ✖ | ✔ (1.000 llamadas/mes) | ✔ (ilimitada) |
+| API de integración CI/CD | No | Sí (1.000 llamadas/mes) | Sí (ilimitada) |
 
 - El plan **Pro anual** tiene un descuento del **20 %** (US$ 470/año).
 - El plan **Enterprise** incluye despliegue opcional en región dedicada y firma de **DPA**

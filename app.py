@@ -27,7 +27,7 @@ from src.loader import ErrorDeCarga, construir_base_conocimiento
 load_dotenv()
 
 RUTA_PDF = Path(os.getenv("RUTA_PDF", "data/devshield_docs.pdf"))
-MODELOS_DISPONIBLES = ["gemini-1.5-flash", "gemini-1.5-pro"]
+MODELOS_DISPONIBLES = ["gemini-2.5-flash", "gemini-2.5-pro"]
 
 PREGUNTAS_SUGERIDAS = [
     "¿Cuántos escaneos incluye el plan Free?",
@@ -38,7 +38,6 @@ PREGUNTAS_SUGERIDAS = [
 
 st.set_page_config(
     page_title="DevShield · Agente IA",
-    page_icon="🛡️",
     layout="centered",
     initial_sidebar_state="expanded",
 )
@@ -70,7 +69,7 @@ def obtener_api_key() -> str | None:
 # --------------------------------------------------------------------------
 # Recursos cacheados
 # --------------------------------------------------------------------------
-@st.cache_resource(show_spinner="🔍 Indexando la base de conocimiento…")
+@st.cache_resource(show_spinner="Indexando la base de conocimiento…")
 def cargar_base_conocimiento(ruta: str):
     """Construye el índice FAISS una sola vez por sesión del servidor.
 
@@ -81,7 +80,7 @@ def cargar_base_conocimiento(ruta: str):
     return construir_base_conocimiento(ruta)
 
 
-@st.cache_resource(show_spinner="🤖 Conectando con Gemini…")
+@st.cache_resource(show_spinner="Conectando con Gemini…")
 def cargar_cadena(_vectorstore, api_key: str, modelo: str, temperatura: float):
     """Construye la cadena de QA.
 
@@ -126,19 +125,19 @@ def construir_historial() -> list:
 def render_sidebar() -> tuple[str | None, str, float]:
     """Dibuja el panel lateral y devuelve (api_key, modelo, temperatura)."""
     with st.sidebar:
-        st.title("🛡️ DevShield")
+        st.title("DevShield")
         st.caption("Agente Inteligente RAG")
         st.divider()
 
         # --- Configuración de la API Key ---
-        st.subheader("🔑 Configuración")
+        st.subheader("Configuración")
         api_key = obtener_api_key()
 
         if api_key:
             origen = "secrets/entorno" if not st.session_state.api_key_manual else "manual"
-            st.success(f"API Key activa ({origen})", icon="✅")
+            st.success(f"API Key activa ({origen})")
         else:
-            st.warning("Falta la API Key de Gemini", icon="⚠️")
+            st.warning("Falta la API Key de Gemini")
             st.text_input(
                 "Pega tu clave de Google Gemini",
                 type="password",
@@ -147,14 +146,14 @@ def render_sidebar() -> tuple[str | None, str, float]:
                 help="La clave solo vive en tu sesión del navegador; no se almacena.",
             )
             st.link_button(
-                "Obtener clave gratuita ↗",
+                "Obtener clave gratuita",
                 "https://aistudio.google.com/app/apikey",
                 use_container_width=True,
             )
             api_key = st.session_state.api_key_manual or None
 
         # --- Parámetros del modelo ---
-        st.subheader("⚙️ Modelo")
+        st.subheader("Modelo")
         modelo = st.selectbox("Modelo de Gemini", MODELOS_DISPONIBLES, index=0)
         temperatura = st.slider(
             "Temperatura",
@@ -168,29 +167,29 @@ def render_sidebar() -> tuple[str | None, str, float]:
         st.divider()
 
         # --- Estado de la base de conocimiento ---
-        st.subheader("📚 Base de conocimiento")
+        st.subheader("Base de conocimiento")
         if RUTA_PDF.exists():
             tamano_kb = RUTA_PDF.stat().st_size / 1024
             st.caption(f"`{RUTA_PDF.name}` · {tamano_kb:.0f} KB")
             st.caption("Embeddings: `all-MiniLM-L6-v2` (local)")
             st.caption("Vectores: `FAISS` (en memoria)")
         else:
-            st.error(f"No se encuentra `{RUTA_PDF}`", icon="🚫")
+            st.error(f"No se encuentra `{RUTA_PDF}`")
 
-        if st.button("🗑️ Limpiar conversación", use_container_width=True):
+        if st.button("Limpiar conversación", use_container_width=True):
             st.session_state.mensajes = []
             st.rerun()
 
         st.divider()
 
         # --- Créditos ---
-        st.subheader("👤 Créditos")
+        st.subheader("Créditos")
         st.markdown(
             """
 **Proyecto:** Agente Inteligente RAG
 **Autor:** *Tu Nombre Aquí*
 **Stack:** Python · Streamlit · LangChain
-**LLM:** Google Gemini 1.5 Flash
+**LLM:** Google Gemini 2.5 Flash
 **Vectores:** FAISS + HuggingFace
 
 [![GitHub](https://img.shields.io/badge/Código-GitHub-181717?logo=github)](https://github.com/tu-usuario/devshield-rag-agent)
@@ -206,7 +205,7 @@ def render_sidebar() -> tuple[str | None, str, float]:
 # --------------------------------------------------------------------------
 def render_cabecera() -> None:
     """Dibuja el encabezado de la aplicación."""
-    st.title("🛡️ Agente Inteligente DevShield")
+    st.title("Agente Inteligente DevShield")
     st.markdown(
         "Pregunta lo que quieras sobre la **documentación técnica, comercial y legal** "
         "de DevShield SaaS. Las respuestas se generan únicamente a partir del "
@@ -216,7 +215,7 @@ def render_cabecera() -> None:
 
 def render_sugerencias() -> None:
     """Muestra botones de preguntas de ejemplo cuando el chat está vacío."""
-    st.info("💡 Empieza con una de estas preguntas o escribe la tuya abajo.")
+    st.info("Empieza con una de estas preguntas o escribe la tuya abajo.")
     columnas = st.columns(2)
     for indice, sugerencia in enumerate(PREGUNTAS_SUGERIDAS):
         with columnas[indice % 2]:
@@ -228,8 +227,7 @@ def render_sugerencias() -> None:
 def render_historial() -> None:
     """Repinta todos los mensajes previos del chat."""
     for mensaje in st.session_state.mensajes:
-        avatar = "🧑‍💻" if mensaje["rol"] == "user" else "🛡️"
-        with st.chat_message(mensaje["rol"], avatar=avatar):
+        with st.chat_message(mensaje["rol"]):
             st.markdown(mensaje["contenido"])
             if mensaje.get("fuentes"):
                 render_fuentes(mensaje["fuentes"])
@@ -237,7 +235,7 @@ def render_historial() -> None:
 
 def render_fuentes(fuentes: list[dict]) -> None:
     """Muestra los fragmentos del PDF que fundamentan una respuesta."""
-    with st.expander(f"📄 Fuentes consultadas ({len(fuentes)})"):
+    with st.expander(f"Fuentes consultadas ({len(fuentes)})"):
         for fuente in fuentes:
             st.caption(f"**Página {fuente['pagina']}**")
             st.markdown(f"> {fuente['extracto']}")
@@ -247,18 +245,17 @@ def procesar_pregunta(cadena, pregunta: str) -> None:
     """Ejecuta la cadena RAG y añade la respuesta al historial."""
     st.session_state.mensajes.append({"rol": "user", "contenido": pregunta})
 
-    with st.chat_message("user", avatar="🧑‍💻"):
+    with st.chat_message("user"):
         st.markdown(pregunta)
 
-    with st.chat_message("assistant", avatar="🛡️"):
+    with st.chat_message("assistant"):
         with st.spinner("Consultando la documentación…"):
             try:
                 resultado = preguntar(cadena, pregunta, construir_historial())
             except Exception as error:  # noqa: BLE001 — se muestra al usuario
                 st.error(
                     "No se pudo generar la respuesta. Revisa que la API Key sea "
-                    f"válida y que tengas cuota disponible.\n\n**Detalle:** `{error}`",
-                    icon="🚫",
+                    f"válida y que tengas cuota disponible.\n\n**Detalle:** `{error}`"
                 )
                 # Se descarta la pregunta para no dejar el historial descuadrado.
                 st.session_state.mensajes.pop()
@@ -295,9 +292,8 @@ def main() -> None:
     # Sin clave no se puede continuar: se avisa y se detiene el flujo.
     if not api_key:
         st.warning(
-            "👈 Configura tu **API Key de Google Gemini** en el panel lateral "
-            "para activar el agente.",
-            icon="🔑",
+            "Configura tu **API Key de Google Gemini** en el panel lateral "
+            "para activar el agente."
         )
         st.stop()
 
@@ -305,7 +301,7 @@ def main() -> None:
     try:
         vectorstore = cargar_base_conocimiento(str(RUTA_PDF))
     except ErrorDeCarga as error:
-        st.error(f"**Error al cargar la base de conocimiento:** {error}", icon="📄")
+        st.error(f"**Error al cargar la base de conocimiento:** {error}")
         st.stop()
 
     cadena = cargar_cadena(vectorstore, api_key, modelo, temperatura)
