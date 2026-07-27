@@ -1,0 +1,14 @@
+# Tema visual de la aplicación (paleta "ciberseguridad": azul profundo + cian).
+[theme]
+primaryColor = "#00b8d4"
+backgroundColor = "#0e1117"
+secondaryBackgroundColor = "#1a1f2e"
+textColor = "#fafafa"
+font = "sans serif"
+
+[server]
+# El PDF de la base de conocimiento es pequeño; no hacen falta uploads grandes.
+maxUploadSize = 5
+
+[browser]
+gatherUsageStats = false

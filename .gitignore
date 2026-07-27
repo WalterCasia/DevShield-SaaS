@@ -1,0 +1,51 @@
+# ---------------- Secretos y credenciales ----------------
+.env
+.env.local
+*.key
+.streamlit/secrets.toml
+
+# ---------------- Entornos virtuales ----------------
+venv/
+.venv/
+env/
+ENV/
+
+# ---------------- Python ----------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---------------- Caché de modelos y vectores ----------------
+# Los embeddings de HuggingFace se descargan a esta caché local.
+.cache/
+huggingface/
+faiss_index/
+*.faiss
+*.pkl
+
+# ---------------- Herramientas y pruebas ----------------
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ---------------- Editores ----------------
+.vscode/
+.idea/
+*.swp
+
+# ---------------- Sistema operativo ----------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------------- Logs ----------------
+*.log
+
+# NOTA: data/devshield_docs.pdf SÍ se versiona (es la base de
+# conocimiento que necesita la app desplegada en Streamlit Cloud).

@@ -1,0 +1,31 @@
+# ------------------------------------------------------------------
+# DevShield RAG Agent - Dependencias
+# Python 3.10+ (probado con 3.11 y 3.12, que es el runtime por defecto
+# de Streamlit Community Cloud).
+# Versiones fijadas para garantizar un despliegue reproducible.
+# ------------------------------------------------------------------
+
+# --- Interfaz web ---
+streamlit==1.40.2
+
+# --- Núcleo de orquestación RAG ---
+langchain==0.3.13
+langchain-core==0.3.28
+langchain-community==0.3.13
+langchain-text-splitters==0.3.4
+
+# --- Modelo de lenguaje: Google Gemini ---
+langchain-google-genai==2.0.7
+
+# --- Embeddings locales y gratuitos (HuggingFace / sentence-transformers) ---
+langchain-huggingface==0.1.2
+sentence-transformers==3.3.1
+
+# --- Base vectorial en memoria ---
+faiss-cpu==1.9.0.post1
+
+# --- Lectura del documento PDF ---
+pypdf==5.1.0
+
+# --- Gestión de variables de entorno en desarrollo local ---
+python-dotenv==1.0.1
