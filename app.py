@@ -187,7 +187,7 @@ def render_sidebar() -> tuple[str | None, str, float]:
         st.markdown(
             """
 **Proyecto:** Agente Inteligente RAG
-**Autor:** *Tu Nombre Aquí*
+**Autor:** *Walter Casia*
 **Stack:** Python · Streamlit · LangChain
 **LLM:** Google Gemini 2.5 Flash
 **Vectores:** FAISS + HuggingFace
