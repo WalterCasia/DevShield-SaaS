@@ -15,6 +15,16 @@
 
 ---
 
+## Demo en Vivo
+
+**[Probar la aplicación](https://devshield-saas-fkh4gods5xqrhsc9qwdvdp.streamlit.app/)**
+
+> Usa la capa gratuita de Gemini. Si la demo agota su cuota diaria, puedes pegar tu
+> propia API Key en el panel lateral — se obtiene gratis en
+> [Google AI Studio](https://aistudio.google.com/app/apikey).
+
+---
+
 ## Descripción
 
 **DevShield RAG Agent** es un asistente conversacional que responde preguntas
@@ -73,3 +83,43 @@ graph TD
     style J fill:#4285F4,color:#fff
     style K fill:#0f9d58,color:#fff
 ```
+
+---
+
+## Instalación y ejecución local
+
+### Requisitos
+- Python 3.11+
+- Una API Key gratuita de [Google AI Studio](https://aistudio.google.com/app/apikey)
+
+### Pasos
+
+```bash
+git clone https://github.com/WalterCasia/DevShield-SaaS.git
+cd DevShield-SaaS
+python -m venv venv
+```
+
+Activa el entorno virtual:
+- **Windows (PowerShell):** `.\venv\Scripts\Activate.ps1`
+- **Linux / macOS:** `source venv/bin/activate`
+
+Instala las dependencias:
+
+```bash
+pip install -r requirements.txt
+```
+
+Configura tu API Key (o pégala directamente en el panel lateral de la app):
+
+```bash
+cp .env.example .env
+```
+
+Abre `.env` y pega tu clave en `GOOGLE_API_KEY`. Luego ejecuta:
+
+```bash
+streamlit run app.py
+```
+
+La aplicación se abre en `http://localhost:8501`.
